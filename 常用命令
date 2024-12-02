@@ -1,0 +1,11 @@
+DOSBOX每次打开的步骤：
+    mount d d:/masm   // 将D盘挂载到D盘
+  
+打开debug：
+    d:/
+    cd masm
+    debug
+
+debug常用命令：
+    
+  
