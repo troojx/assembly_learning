@@ -1,0 +1,68 @@
+[bx+idatda] 表示一个内存单元，它的偏移地址为 （bx）+idata
+
+si di是和bx功能相近的寄存器，si di不能够分成2个8位寄存器来使用。
+下面三组指令功能相同：
+  1. mov bx,0
+     mov ax,[bx]
+  2. mov si,0
+     mov ax,[si]
+  3. mov di,0
+     mov ax,[di]
+
+下面三组指令功能相同：
+  1. mov bx,0
+     mov ax,[bx+123]
+  2. mov si,0
+     mov ax,[si+123]
+  3. mov di,0
+     mov ax,[di+123]
+
+
+[bx+si] [bx+di] 作用相似
+  mov ax,[bx][si]        /        mov ax,[bx+si]
+  段地址在ds中，偏移地址为bx的数值+si的数值
+
+BX(base)：基址寄存器
+SI（source index）：源变址寄存器
+DI（destination index）:目的变址寄存器
+BP（base pointer）：基址指针寄存器
+
+
+段寄存器sreg:
+CS(code) :代码段寄存器
+DS（data）:数据段寄存器
+SS（stack segment）：堆栈段寄存器
+ES(extra segment):附加段寄存器
+
+reg表示一个寄存器
+sreg表示一个段寄存器
+
+总结：
+  1. 在8086CPU中，只有 bx si di bp 这四个寄存器可以用在[]中进行内存单元的寻址
+  2. 只要在 [] 中使用bp，而指令中没有显性的给出段地址，段地址就默认在ss（stack segment堆栈段寄存器）中
+  3. [bx] -> ds:bx            [bp] -> ss:bp
+
+
+寻址方式：
+  1.直接寻址     [idata]
+  2.寄存器间接寻址   [bx] [si] [di] [bp]
+  3.寄存器相对寻址   [bx+idata] ... [bp+idata]
+  4.基址变址寻址     [bx+ si/di][bp+ si/di]
+  5.相对基址变址寻址  [bx+ si/di +idata] [bp+ si/di +idata] 
+
+标志位寄存器：flag
+  1.ZF标志：结果=0，zf=1 ,否则zf=0
+    NZ:not zero  ZR:zero
+  2.PF标志：结果所有的bit位中1的个数是否为偶数
+    PE：even偶数个1  PO：odd 奇数个1
+  3.NG:负数  PL：正数
+  4.NC：没有溢出（not carry没有进位）   CY：溢出(carry有进位)
+    溢出：运算结果超出机器能表示的8位有符号数的表示范围：-128 - 127
+    OF:溢出标志
+  5.DF：direction flag方向标志 ，用于串处理，
+    DF=1时，每次操作后使SI和DI减小，若DF=0则增大
+  6.IF：interrupt flag 中断标志
+    IF=1时，允许CPU相应可屏蔽中断，否则关闭中断
+  7.TF:trap flag 陷阱标志 用于调试单步操作
+  8.AF：辅助进位标志，第3位向第4位进位时为1
+  
