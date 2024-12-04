@@ -1,0 +1,23 @@
+在代码段中使用数据：
+MASM内部以数据位的个数定义了多种数据类型
+    BYTE, db , 8位
+    WORD, dw , 16
+    DWORD,dd , 32
+    QWORD,dq , 64
+
+写16进制不能以字母开头，必须写个0，后面写个H
+
+将数据、代码、栈放入不同的段
+      assume cs:code,ds:data,ss:stack
+      data segment         dw 10 dup(0)         data ends
+      stack segment
+      code segment
+数据段。代码段。栈段存储的空间是连续的，至少占了16个字节（为了分开）
+只要代码段前面还存了一些东西，就要用start，让cs:ip正确的指向开始的地方
+
+dup使用：
+    db 10 dup(1)
+    db 10 dup(1,2,3)
+    db 3 dup('abc','def')
+
+    db 'hello world'  存储字符串 在内存中用ASCII码存储
