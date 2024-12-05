@@ -3,9 +3,10 @@ start:
         mov ds,data     ;ds存放data的段地址-------可以使用SI作为偏移地址的寄存器
 
 输出：
+        09h : 打印字符串            02h : 打印字符
   1.输出str1
     mov dx,str1
-    mov ah,09h
+    mov ah,09h        
     int 21h
   2.输出换行符
     crlf db 0dh,0ah,'$'
