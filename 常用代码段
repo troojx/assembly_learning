@@ -1,6 +1,6 @@
 start:
         mov ax,data
-        mov ds,data     ;ds存放data的段地址
+        mov ds,data     ;ds存放data的段地址-------可以使用SI作为偏移地址的寄存器
 
 输出：
   1.输出str1
