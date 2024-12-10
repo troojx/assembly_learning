@@ -181,6 +181,39 @@ jcxz : 有条件跳转指令，所有的有条件转移指令都是短转移，�
             2.push IP
             3.jmp far ptr 标号
 
+宏定义：
+宏（macro）是一种将一段代码块定义为一个命令的机制，使用时可以方便地调用它，避免重复编写相同的代码。
+msg  macro message  ; 输出提示符的宏，宏名是 msg，接受一个参数 message
+    lea dx, message    ; 将 message 的地址加载到寄存器 dx 中
+    mov ah, 09h        ; 设置功能号 09（显示字符串）    
+    int 21h            ; 调用 DOS 中断 21h，执行输出字符串的功能
+endm               ; 宏结束
+
+
+标签Label:
+通过标签，程序可以轻松地访问和修改数据，而不需要直接操作内存地址。标签通常用于标识代码段、数据段或存储位置，作为程序中其他部分的引用。
+phonein label byte
+    pmax db 8
+    pact db ?
+    phone db 8 dup(?)
+
+    使用：1.加载数据段地址到寄存器 
+                lea dx, phonein  ; 将 phonein 的地址加载到 dx 寄存器
+         2.访问 phonein 中的具体数据项
+                mov al, [phonein + 2]   ; 将 phonein 中第 3 个字节 (phone 的第一个字符) 加载到 al 寄存器
+         3.存储数据
+                mov byte ptr [phonein + 1], 5  ; 将 5 存储到 pact 字段中，表示电话号码的长度是 5
+         4.多重字段 
+            如果有多个数据项，你可以通过标签和偏移量的组合来访问不同的字段。例如，phonein 包含了 pmax、pact 和 phone，每个字段之间有一定的偏移量。你可以依次访问这些字段。
+                lea si, phonein        ; 将 phonein 的地址加载到 si 寄存器
+                mov al, [si]           ; 访问 pmax
+                mov al, [si + 1]       ; 访问 pact
+                mov al, [si + 2]       ; 访问 phone 的第一个字符
+
+
+
+
+
 
 还有一些：
     读取时间信息，读取端口，指针转换（可以强制转换）
