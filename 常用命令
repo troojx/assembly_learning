@@ -34,6 +34,7 @@ debug常用命令：记忆true ad    rde atu
 3.4 mov add sub mul div指令
 
 mov常用指令
+    只能：mov ax,Y         mov Y,ax       mov ax,bx
     mov 寄存器，数据        mov ah,8   //ah表示AX寄存器的高两位，al表示AX寄存器的低两位
     mov 寄存器，寄存器      mov ax,bx
     mov 寄存器，内存单元    mov ax,[0]
@@ -122,6 +123,7 @@ nop :空指令，占一个字节，可以将某个操作移到空指令的地方
 
 cmp指令：比较，相当于减法指令，但不保存结果
     cmp 对象1，对象2     ：计算 对象1-对象2，不保存结果，只修改标志寄存器的值（ZF PF SF CF OF）
+                            寄存器中保存上一条指令的执行结果
 
     ax=bx  : zf=1    ax!=bx : zf=0
     ax<bx  : cf=1    ax>=bx : cf=0
