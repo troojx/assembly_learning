@@ -210,7 +210,9 @@ phonein label byte
                 mov al, [si + 1]       ; 访问 pact
                 mov al, [si + 2]       ; 访问 phone 的第一个字符
 
-
+ret:
+    1.在子函数中返回调用它的函数位置
+    2.在主程序最后，退出程序，返回操作系统
 
 
 
